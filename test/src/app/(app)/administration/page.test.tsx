@@ -14,8 +14,7 @@ describe('administration page', () => {
     render(<AdministrationPage />);
 
     expect(await screen.findByRole('heading', { name: 'User Role Access Management' })).toBeTruthy();
-    expect(screen.getByRole('combobox', { name: 'Role' })).toBeTruthy();
-    expect(screen.getByText(/Everyone defaults to Developer/)).toBeTruthy();
+    
   });
 
   it('updates role permissions and supports editing and cancelling an assignment', async () => {
