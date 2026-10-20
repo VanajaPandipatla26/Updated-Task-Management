@@ -1,0 +1,7 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+:root { --bg: #f2f5f8; --surface: #fff; --line: #d7dee6; --text: #17212b; --muted: #5c6b7a; --accent: #0f6f8f; --danger: #c2372f; --warn: #b7791f; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0e151c; --surface: #16202a; --line: #2a3846; --text: #e6edf3; --muted: #93a3b3; --accent: #3fb0d3; --danger: #ef7069; --warn: #e0a84a; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body), system-ui, sans-serif; }
