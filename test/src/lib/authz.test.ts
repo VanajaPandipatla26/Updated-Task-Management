@@ -3,13 +3,14 @@ import { cookies } from 'next/headers';
 import { currentUser, forbid } from '@/lib/authz';
 import { Role } from '@/types/roles';
 import { rolesDb } from '@/lib/rolesDb';
+import { createSession } from '@/lib/session';
 
 vi.mock('next/headers', () => ({ cookies: vi.fn() }));
 
 describe('authorization helpers', () => {
   beforeEach(() => {
     rolesDb.assignments['auth-test'] = { username: 'auth-test', role: Role.ProductOwner };
-    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: 'auth-test' }) } as never);
+    vi.mocked(cookies).mockResolvedValue({ get: () => ({ value: createSession('auth-test') }) } as never);
   });
 
   it('builds the current user from the auth cookie and role permissions', async () => {

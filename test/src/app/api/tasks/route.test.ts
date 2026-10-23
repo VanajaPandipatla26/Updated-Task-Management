@@ -24,6 +24,11 @@ describe('task collection routes', () => {
     expect(await (await GET()).json()).toEqual(db);
   });
 
+  it('forbids listing tasks without access permission', async () => {
+    vi.mocked(currentUser).mockResolvedValueOnce({ username: '', role: 'HR' as never, permissions: { access: false, add: false, edit: false, delete: false } });
+    expect((await GET()).status).toBe(403);
+  });
+
   it('rejects blank titles and creates a valid task', async () => {
     const invalid = await POST(request({ title: '  ' }));
     expect(invalid.status).toBe(400);

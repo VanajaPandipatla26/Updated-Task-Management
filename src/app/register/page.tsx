@@ -14,9 +14,9 @@ export default function RegisterPage() {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (username.trim().length < 3) return setError('Username must be at least 3 characters.');
-    if (password.length < 6) return setError('Password must be at least 6 characters.');
+    if (!/^[a-zA-Z0-9_-]{3,32}$/.test(username.trim())) return setError('Username must be 3-32 letters, numbers, underscores, or hyphens.');
     if (password !== confirm) return setError('Passwords do not match.');
+    if (password.length < 8 || password.length > 128) return setError('Password must be 8-128 characters.');
     setBusy(true); setError('');
     try { await api.post('/api/register', { username, password }); setDone(true); }
     catch (err) { setError((err as Error).message); setBusy(false); }

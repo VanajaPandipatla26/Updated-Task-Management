@@ -25,7 +25,7 @@ export default function LoginPage() {
     <div className={s.center}>
       <form className={s.modal} onSubmit={submit} noValidate>
         <h2>Sign in</h2>
-        <p className={s.meta}>Demo account: <code>demo</code> / <code>password123</code>, or register your own.</p>
+        <p className={s.meta}>Sign in with your registered account.</p>
         <label className={s.field}>Username
           <input className={s.input} value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" />
         </label>

@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { db, saveTasks } from '@/lib/db';
 import { currentUser, forbid } from '@/lib/authz';
 import { Task, TaskInput } from '@/types/task';
 
 export async function GET() {
+  if (!(await currentUser()).permissions.access) return forbid('access tasks');
   return NextResponse.json(db);
 }
 export async function POST(req: Request) {
@@ -12,5 +13,6 @@ export async function POST(req: Request) {
   if (!body.title?.trim()) return NextResponse.json({ error: 'Title is required' }, { status: 400 });
   const task: Task = { ...body, id: crypto.randomUUID() };
   db.unshift(task);
+  saveTasks();
   return NextResponse.json(task, { status: 201 });
 }
